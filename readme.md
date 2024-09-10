@@ -84,5 +84,5 @@ If this work helps your research, please cite our paper.
 ___
 We would like to thank the work that help our paper:
 
-1. Our code is builed up based on RegGAN: https://github.com/Kid-Liet/Reg-GAN.
+1. Our code is built up based on RegGAN: https://github.com/Kid-Liet/Reg-GAN.
 2. GraNet: https://github.com/VITA-Group/GraNet.
