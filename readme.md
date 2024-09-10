@@ -10,4 +10,4 @@ Recent advances in deep learning have witnessed many successful medical image tr
 ### Impressive results
 
 ---
-![Mian Figure](./figures/DF.pdf "Main Figure")
+![Mian Figure](./figure/DF.png "Main Figure")
