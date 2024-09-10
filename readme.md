@@ -15,7 +15,32 @@ Recent advances in deep learning have witnessed many successful medical image tr
 ### Usage
 
 ---
-Should you have any questions about using this repo, feel free to contact Jiahao Xu @ jiahaox@unr.edu
+
+#### Hyperparameters introduction for Reconfig-MIT
+
+##### General hyperparameters.
+
+| Argument        | Type       | Description                                                               |
+|-----------------|------------|---------------------------------------------------------------------------|
+| `noise_level`         | int        | Noise level imposed to training data, ranging from 0-5                                           |
+| `n_epochs`    | int        | Total training epochs          |
+| `data_ratio`    | float      | To simulate a training data limited scenario                              |
+| `regist`         | store_true | Enable registration network                                              |
+| `r_ccl`      | store_true      | Enable R_CCL  |
+
+
+
+##### Hyperparameters listed below are specifically for Reconfig-MIT.
+| Argument        | Type       | Description                                                               |
+|-----------------|------------|---------------------------------------------------------------------------|
+| `reconfig_mit`             | store_true        | Enable Reconfi-MIT                                                      |
+| `init-density`  | float        | Initial density  epochs                                                    |
+| `final-density`  | float        | Final density to be growed epochs                                                    |
+| `warmup_epoch`  | int        | Warmup training epochs                                                    |
+| `final-grow-epoch`  | int        | The last epoch of growing                                                    |
+| `update-frequency`  | int        | Grow frequency                                                    |
+| `regrow`  | store_true        | Enable grow of the network                                                    |
+
 
 #### Example
 
@@ -24,34 +49,37 @@ To run a Re-SNGAN or Re-ProGAN model, you may follow:
 ```
 git clone https://github.com/IntellicentAI-Lab/Reconfig-MIT.git
 ```
-2. Prepare the required and datasets. You may download the used dataset from: 
+1. Prepare the dataset and place it in ./data/. You may download the used dataset from: 
 ```
 https://github.com/Kid-Liet/Reg-GAN
 ```
-3. Run! For example:
-```
-# If you want to run a CycleGAN baseline on 10% of training data with noise level 5, you can use:
+1. Run! For example:
+   
+    3.1. If you want to run a CycleGAN baseline on 10% of training data with noise level 5, you can use:
+    ```
+    CUDA_VISIBLE_DEVICES=0 python train.py --model Reconfig_MIT --bidirect --cuda --data_ratio 0.1 --noise_level 5 --n_epochs 400
+    ```
 
-CUDA_VISIBLE_DEVICES=0 python train.py --model Reconfig_MIT --bidirect --cuda --data_ratio 0.1 --noise_level 5 --n_epochs 400
+    3.2. If you want to run a RegGAN baseline on 10% of training data with noise level 5, you can use:
+    ```
+    CUDA_VISIBLE_DEVICES=0 python train.py --model Reconfig_MIT --bidirect --cuda --data_ratio 0.1 --noise_level 5 --n_epochs 400 \
+    --regist   # The only difference is here.
+    ```
+    3.3. If you want to run a Reconfig-MIT  on 10% of training data with noise level 5, you can use:
+    ```
+    CUDA_VISIBLE_DEVICES=0 python train.py --model Reconfig_MIT --bidirect --cuda --data_ratio 0.1 --noise_level 5 --n_epochs 400 \
+    --regist \   # Enable registration newtork
+    --r_ccl --EL_lamda 10 \    # For R-CCL
+    --sparse --init-density 0.1 --final-density 0.7 --warmup_epoch 50 --final-grow-epoch 200 \
+    --update-frequency 1000 --method GMP --rm-first --regrow     # For Pruning
+    ```
 
-# If you want to run a RegGAN baseline on 10% of training data with noise level 5, you can use:
+### Acknowledgment
 
-CUDA_VISIBLE_DEVICES=0 python train.py --model Reconfig_MIT --bidirect --cuda --data_ratio 0.1 --noise_level 5 --n_epochs 400 \
---regist   # The only difference is here.
+___
+We would like to thank the work that help our paper:
 
-# If you want to run a Reconfig-MIT  on 10% of training data with noise level 5, you can use:
+1. RegGAN: https://github.com/Kid-Liet/Reg-GAN.
+2. GraNet: https://github.com/VITA-Group/GraNet.
 
-CUDA_VISIBLE_DEVICES=0 python train.py --model Reconfig_MIT --bidirect --cuda --data_ratio 0.1 --noise_level 5 --n_epochs 400 \
---regist \   # The only difference is here.
---r_ccl --EL_lamda 10 \    # For R-CCL
---sparse --init-density 0.1 --final-density 0.7 --warmup_epoch 50 --final-grow-epoch 200 \
---update-frequency 1000 --method GMP --rm-first --regrow
-
-```
-
-
-
-# For ProGAN
-python main.py --data_ratio 0.1 \
---regan --warmup_epoch 10 --g 10 --sparse 0.3 
-# Please define epoch and batch size in the main.py
+Thanks again for their work!
