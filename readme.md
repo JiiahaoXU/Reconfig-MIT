@@ -81,5 +81,3 @@ We would like to thank the work that help our paper:
 
 1. RegGAN: https://github.com/Kid-Liet/Reg-GAN.
 2. GraNet: https://github.com/VITA-Group/GraNet.
-
-Thanks again for their work!
