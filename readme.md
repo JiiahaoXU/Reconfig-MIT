@@ -74,6 +74,11 @@ https://github.com/Kid-Liet/Reg-GAN
     --update-frequency 1000 --method GMP --rm-first --regrow     # For Pruning
     ```
 
+
+### Citation
+
+If this work helps your research, please cite our paper.
+
 ### Acknowledgment
 
 ___
