@@ -11,3 +11,47 @@ Recent advances in deep learning have witnessed many successful medical image tr
 
 ---
 ![Mian Figure](./figure/DF.png "Main Figure")
+
+### Usage
+
+---
+Should you have any questions about using this repo, feel free to contact Jiahao Xu @ jiahaox@unr.edu
+
+#### Example
+
+To run a Re-SNGAN or Re-ProGAN model, you may follow:
+1. Clone this repo to your local environment.
+```
+git clone https://github.com/IntellicentAI-Lab/Reconfig-MIT.git
+```
+2. Prepare the required and datasets. You may download the used dataset from: 
+```
+https://github.com/Kid-Liet/Reg-GAN
+```
+3. Run! For example:
+```
+# If you want to run a CycleGAN baseline on 10% of training data with noise level 5, you can use:
+
+CUDA_VISIBLE_DEVICES=0 python train.py --model Reconfig_MIT --bidirect --cuda --data_ratio 0.1 --noise_level 5 --n_epochs 400
+
+# If you want to run a RegGAN baseline on 10% of training data with noise level 5, you can use:
+
+CUDA_VISIBLE_DEVICES=0 python train.py --model Reconfig_MIT --bidirect --cuda --data_ratio 0.1 --noise_level 5 --n_epochs 400 \
+--regist   # The only difference is here.
+
+# If you want to run a Reconfig-MIT  on 10% of training data with noise level 5, you can use:
+
+CUDA_VISIBLE_DEVICES=0 python train.py --model Reconfig_MIT --bidirect --cuda --data_ratio 0.1 --noise_level 5 --n_epochs 400 \
+--regist \   # The only difference is here.
+--r_ccl --EL_lamda 10 \    # For R-CCL
+--sparse --init-density 0.1 --final-density 0.7 --warmup_epoch 50 --final-grow-epoch 200 \
+--update-frequency 1000 --method GMP --rm-first --regrow
+
+```
+
+
+
+# For ProGAN
+python main.py --data_ratio 0.1 \
+--regan --warmup_epoch 10 --g 10 --sparse 0.3 
+# Please define epoch and batch size in the main.py
