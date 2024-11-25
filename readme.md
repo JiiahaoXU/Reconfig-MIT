@@ -44,7 +44,7 @@ Recent advances in deep learning have witnessed many successful medical image tr
 
 #### Example
 
-To run a Re-SNGAN or Re-ProGAN model, you may follow:
+To run a case, you may follow:
 1. Clone this repo to your local environment.
 ```
 git clone https://github.com/IntellicentAI-Lab/Reconfig-MIT.git
